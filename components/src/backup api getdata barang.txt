@@ -1,0 +1,17 @@
+<?php
+	include_once "connect.php";
+
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json,true);
+    $kode = $obj['kode'];
+
+	$sql = "SELECT * FROM barang WHERE kode='$kode'";
+	$query = mysqli_query($conn, $sql);
+
+	$array = array();
+	while ($row = mysqli_fetch_assoc($query)){
+		$array[] = $row; 
+	}
+	echo json_encode($array);
+	mysqli_close($conn);
+?>
